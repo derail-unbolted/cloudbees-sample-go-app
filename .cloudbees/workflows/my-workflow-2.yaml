@@ -1,11 +1,13 @@
 apiVersion: automation.cloudbees.io/v1alpha1
 kind: workflow
 name: expression-injection.yml
+
 on:
   pull_request:
     branches:
       - "**"
   workflow_dispatch:
+
 jobs:
   build:
     steps:
@@ -13,4 +15,5 @@ jobs:
         uses: docker://golang:1.20.3-alpine3.17
         shell: sh
         run: |
-          echo ${{ cloudbees.event.pull_request.title }}
+          echo ${{ cloudbees.scm.ref }}
+          echo ${{ cloudbees.event }}
