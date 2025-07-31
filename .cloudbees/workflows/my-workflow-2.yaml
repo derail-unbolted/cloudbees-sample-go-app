@@ -5,7 +5,7 @@ name: expression-injection.yml
 on:
   pull_request:
     branches:
-      - "**"
+      - main
   workflow_dispatch:
 
 jobs:
@@ -16,4 +16,3 @@ jobs:
         shell: sh
         run: |
           echo ${{ cloudbees.scm.ref }}
-          echo ${{ cloudbees.event }}
