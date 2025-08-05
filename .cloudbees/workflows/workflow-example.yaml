@@ -40,8 +40,8 @@ jobs:
       needs:
         - build-approval
       steps:
-        - name: Checkout source
-          uses: cloudbees-io/checkout
+        #- name: Checkout source
+        #  uses: cloudbees-io/checkout
         - uses: docker://golang:1.20.3-alpine3.17
           name: Echo inputs
           shell: sh
