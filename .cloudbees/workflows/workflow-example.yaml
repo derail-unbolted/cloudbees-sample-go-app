@@ -6,12 +6,8 @@ on:
 jobs:
   build:
     steps:
-      - uses: docker://golang:1.20.3-alpine3.17
-        name: Say hello
-        kind: test
-        shell: sh
-        run: |
-          echo "hello world"
+      - name: Checkout source
+        uses: cloudbees-io/checkout
     needs: build-approval
   build-approval:
     with:
@@ -49,3 +45,6 @@ jobs:
             echo "\
             Comments:
             ${{ fromJSON(needs.build-approval.outputs.approvalInputValues).string-value }}"
+          with:
+            prop1: ${{ vars.myPropGlobal }}
+            secret1: ${{ secrets.secretPropGlobal }}
