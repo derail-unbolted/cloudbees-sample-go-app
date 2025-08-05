@@ -6,8 +6,11 @@ on:
 jobs:
   build:
     steps:
-      - name: Checkout source
-        uses: cloudbees-io/checkout
+      - name: Say hello
+        uses: docker://golang:1.20.3-alpine3.17
+        shell: sh
+        run: |
+          echo "hello world"
     needs: build-approval
   build-approval:
     with:
@@ -30,6 +33,10 @@ jobs:
     timeout-minutes: 4320
     delegates: cloudbees-io/manual-approval/custom-job.yml@v1
   use-approval-parameters:
+      permissions:
+        scm-token-own: read
+        scm-token-org: read
+        id-token: write
       needs:
         - build-approval
       steps:
