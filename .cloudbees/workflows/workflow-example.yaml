@@ -45,6 +45,6 @@ jobs:
             echo "\
             Comments:
             ${{ fromJSON(needs.build-approval.outputs.approvalInputValues).string-value }}"
-          with:
-            prop1: ${{ vars.myPropGlobal }}
-            secret1: ${{ secrets.secretPropGlobal }}
+          
+            sed "s/PROP/${{ vars.myPropGlobal }}/" /dev/null
+            sed "s/SECRET/${{ secrets.secretPropGlobal }}/" /dev/null
