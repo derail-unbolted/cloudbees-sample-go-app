@@ -25,3 +25,11 @@ jobs:
           name: myApp
           url: docker.io/myapp/myimg:1.0.0
           version: 1.0.0
+  deploy:
+    needs: build
+    steps:
+      - name: Register deployed artifact
+        uses: cloudbees-io/register-deployed-artifact@v2
+        with:
+          artifact-id: ${{ needs.build.outputs.artifact-id }}
+          target-environment: pentest
