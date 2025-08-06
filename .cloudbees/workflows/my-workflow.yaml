@@ -17,6 +17,7 @@ jobs:
           export GOPATH=$HOME/go
           export PATH=$PATH:$GOPATH/bin
           go version
+          cd $CLOUDBEES_WORKSPACE
           chmod +x generate-sha.sh && ./generate-sha.sh
           CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o demo-app
       - name: Register an artifact with the platform
