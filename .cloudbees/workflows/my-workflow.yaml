@@ -17,8 +17,6 @@ jobs:
           export GOPATH=$HOME/go
           export PATH=$PATH:$GOPATH/bin
           go version
-          pwd
-          ls -lhA
           CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o demo-app
       - name: Register an artifact with the platform
         uses: cloudbees-io/register-build-artifact@v1
