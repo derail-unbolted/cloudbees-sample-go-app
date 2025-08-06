@@ -10,6 +10,8 @@ jobs:
   build:
     steps:
       - uses: https://github.com/cloudbees-io/checkout@v1
+        with:
+          path: srcdir
       - name: build code
         uses: docker://golang:1.20.3-alpine3.17
         shell: sh
@@ -17,7 +19,7 @@ jobs:
           export GOPATH=$HOME/go
           export PATH=$PATH:$GOPATH/bin
           go version
-          cd $CLOUDBEES_WORKSPACE
+          cd "$CLOUDBEES_WORKSPACE/srcdir"
           chmod +x generate-sha.sh && ./generate-sha.sh
           CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o demo-app
       - name: Register an artifact with the platform
