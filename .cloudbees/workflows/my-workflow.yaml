@@ -24,4 +24,4 @@ jobs:
         with:
           name: myApp
           url: docker.io/myapp/myimg:1.0.0
-          version: ${{ $(date '+%Y%m%d%H%M%S') }}
+          version: 1.0.0
