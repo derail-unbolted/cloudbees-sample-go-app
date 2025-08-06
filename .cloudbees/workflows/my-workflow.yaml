@@ -9,8 +9,25 @@ on:
 jobs:
   build:
     steps:
-      - name: Say hello
+      - uses: https://github.com/cloudbees-io/checkout@v1
+      - name: build code
         uses: docker://golang:1.20.3-alpine3.17
         shell: sh
         run: |
-          echo "hello world"
+          export GOPATH=$HOME/go
+          export PATH=$PATH:$GOPATH/bin
+          go version
+          chmod +x generate-sha.sh && ./generate-sha.sh
+          CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o demo-app
+      - name: Register an artifact with the platform
+        uses: cloudbees-io/register-build-artifact@v1
+        id: register
+        with:
+          name: myApp
+          url: docker.io/myapp/myimg:1.0.0
+          version: 1.0.0
+      - name: Print output parameter artifact ID
+        uses: docker://alpine:latest
+        shell: sh
+        run: |
+          echo "artifact ID for myApp:${{ cloudbees.version }} is: ${{ steps.register.outputs.artifact-id }}"
